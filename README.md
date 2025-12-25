@@ -4,8 +4,6 @@ Sentinel Pipeline is a **production-grade, local CI reliability and failure mana
 
 It runs entirely on a local machine using Docker and open-source tooling, with **zero paid dependencies**. The system is intentionally scoped to reflect real-world CI reliability challenges such as flaky tests, repeated failures, and incident response, while remaining reproducible and easy to evaluate.
 
-This project is well suited for **technical interviews**, **portfolio demonstrations**, and **hands-on learning** in distributed systems, CI infrastructure, and production engineering.
-
 ---
 
 ## ✨ Why Sentinel Pipeline
