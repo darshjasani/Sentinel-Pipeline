@@ -1,4 +1,4 @@
-.PHONY: up down clean logs seed demo-testfail demo-success health
+.PHONY: up down clean logs seed demo-testfail demo-success demo-flaky health runs incidents rebuild help
 
 # Start the entire system
 up:
@@ -15,8 +15,8 @@ up:
 	@echo "✔ UI available at http://localhost:3000"
 	@echo ""
 	@echo "Try these commands:"
-	@echo "  make demo:testfail  - Trigger deterministic test failure"
-	@echo "  make demo:success   - Trigger successful run"
+	@echo "  make demo-testfail  - Trigger deterministic test failure"
+	@echo "  make demo-success   - Trigger successful run"
 	@echo "  make logs          - View system logs"
 
 # Stop all services
@@ -59,7 +59,7 @@ seed:
 	@docker-compose exec -T api python -c "from database import seed_database; seed_database()" || echo "⚠️  Database already seeded or API not ready yet"
 
 # Demo: Trigger deterministic test failure
-demo:testfail:
+demo-testfail:
 	@echo "🔴 Triggering deterministic test failure..."
 	@curl -s -X POST http://localhost:8000/runs \
 		-H "Content-Type: application/json" \
@@ -70,7 +70,7 @@ demo:testfail:
 	@echo "Expected: Incident will be created after failure threshold"
 
 # Demo: Trigger successful run
-demo:success:
+demo-success:
 	@echo "🟢 Triggering successful run..."
 	@curl -s -X POST http://localhost:8000/runs \
 		-H "Content-Type: application/json" \
@@ -80,7 +80,7 @@ demo:success:
 	@echo "✔ Run triggered. Check UI at http://localhost:3000"
 
 # Demo: Trigger flaky test
-demo:flaky:
+demo-flaky:
 	@echo "🟡 Triggering flaky test scenario..."
 	@for i in 1 2 3 4 5; do \
 		curl -s -X POST http://localhost:8000/runs \
@@ -138,9 +138,9 @@ help:
 	@echo "  make clean           - Clean all data and volumes"
 	@echo ""
 	@echo "Demo commands:"
-	@echo "  make demo:testfail   - Trigger test failure"
-	@echo "  make demo:success    - Trigger successful run"
-	@echo "  make demo:flaky      - Trigger flaky test scenario"
+	@echo "  make demo-testfail   - Trigger test failure"
+	@echo "  make demo-success    - Trigger successful run"
+	@echo "  make demo-flaky      - Trigger flaky test scenario"
 	@echo ""
 	@echo "Monitoring:"
 	@echo "  make logs            - View all logs"
