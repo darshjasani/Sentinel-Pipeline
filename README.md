@@ -247,7 +247,7 @@ Do not expose it to untrusted networks without additional security controls.
 
 ---
 
-## 📄 License
+## License
 
 MIT License
 
