@@ -1,0 +1,107 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: ci_postgres
+    environment:
+      POSTGRES_USER: ciuser
+      POSTGRES_PASSWORD: cipass
+      POSTGRES_DB: ci_pipeline
+      # Limit memory for 8GB systems
+      POSTGRES_SHARED_BUFFERS: 128MB
+      POSTGRES_EFFECTIVE_CACHE_SIZE: 256MB
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./db/init.sql:/docker-entrypoint-initdb.d/01-init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ciuser -d ci_pipeline"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    shm_size: 128mb
+    mem_limit: 512m
+
+  redis:
+    image: redis:7-alpine
+    container_name: ci_redis
+    command: redis-server --maxmemory 256mb --maxmemory-policy allkeys-lru
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    mem_limit: 256m
+
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    container_name: ci_api
+    environment:
+      DATABASE_URL: postgresql://ciuser:cipass@postgres:5432/ci_pipeline
+      REDIS_URL: redis://redis:6379
+      PYTHONUNBUFFERED: 1
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data/logs:/app/logs
+      - ./sample-repos:/app/sample-repos:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    mem_limit: 512m
+    restart: unless-stopped
+
+  worker:
+    build:
+      context: ./worker
+      dockerfile: Dockerfile
+    container_name: ci_worker
+    environment:
+      DATABASE_URL: postgresql://ciuser:cipass@postgres:5432/ci_pipeline
+      REDIS_URL: redis://redis:6379
+      PYTHONUNBUFFERED: 1
+    volumes:
+      - ./data/logs:/app/logs
+      - ./sample-repos:/app/sample-repos:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    mem_limit: 1g
+    restart: unless-stopped
+
+  ui:
+    build:
+      context: ./ui
+      dockerfile: Dockerfile
+    container_name: ci_ui
+    ports:
+      - "3000:3000"
+    environment:
+      VITE_API_URL: http://localhost:8000
+    depends_on:
+      - api
+    mem_limit: 256m
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+
+networks:
+  default:
+    name: ci_network
+

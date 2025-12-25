@@ -1,0 +1,8 @@
+sqlalchemy==2.0.23
+psycopg2-binary==2.9.9
+redis==5.0.1
+rq==1.16.0
+pytest==7.4.3
+pydantic==2.5.3
+pydantic-settings==2.1.0
+
