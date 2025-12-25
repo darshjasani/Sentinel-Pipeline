@@ -159,7 +159,7 @@ make reset
 
 ## 🎬 Demo Commands
 
-Sentinel Pipeline includes deterministic demo scenarios designed for reliability testing and interviews.
+Sentinel Pipeline includes deterministic demo scenarios designed for reliability testings.
 
 ```bash
 make demo:success     # Successful CI run
