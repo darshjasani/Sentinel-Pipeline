@@ -1,5 +1,5 @@
 {
-  "name": "ci-pipeline-ui",
+  "name": "sentinel-pipeline-ui",
   "version": "1.0.0",
   "type": "module",
   "scripts": {

@@ -1,10 +1,10 @@
-# ⚡ CI Pipeline - Production-Grade CI/CD Management System
+# ⚡ Sentinel Pipeline - Production-Grade CI/CD Management System
 
 A complete, production-ready CI/CD pipeline management system with intelligent failure clustering, incident tracking, and flaky test detection. Built to showcase enterprise-grade software engineering practices.
 
 ## 🎯 What This Is
 
-This is a **fully functional CI pipeline system** that demonstrates:
+This is a **fully functional Sentinel pipeline system** that demonstrates:
 
 - **Distributed architecture** with API, worker, and database services
 - **Intelligent failure clustering** using fingerprinting and pattern matching
@@ -223,7 +223,7 @@ curl http://localhost:8000/dashboard
 ## 📁 Project Structure
 
 ```
-CI-Pipeline/
+Sentinel-Pipeline/
 ├── api/                    # FastAPI backend
 │   ├── main.py            # API endpoints
 │   ├── database.py        # SQLAlchemy models

@@ -1,6 +1,6 @@
 # Python Sample Project
 
-This is a sample Python project used for CI pipeline testing.
+This is a sample Python project used for Sentinel pipeline testing.
 
 ## Test Scenarios
 

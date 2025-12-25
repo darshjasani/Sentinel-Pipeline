@@ -12,7 +12,7 @@ Before starting, ensure you have:
 ### 1. Start the System (60 seconds)
 
 ```bash
-cd "CI Pipeline"
+cd "Sentinel Pipeline"
 make up
 ```
 

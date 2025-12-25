@@ -11,7 +11,7 @@ export default function App() {
       <div style={styles.container}>
         <nav style={styles.nav}>
           <div style={styles.navContent}>
-            <h1 style={styles.logo}>⚡ CI Pipeline</h1>
+            <h1 style={styles.logo}>⚡ Sentinel Pipeline</h1>
             <div style={styles.navLinks}>
               <Link to="/" style={styles.navLink}>Dashboard</Link>
               <Link to="/flaky-tests" style={styles.navLink}>Flaky Tests</Link>

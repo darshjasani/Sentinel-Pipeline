@@ -1,4 +1,4 @@
--- CI Pipeline Database Schema
+-- Sentinel Pipeline Database Schema
 -- Optimized for 8GB RAM systems with proper indexing
 
 -- Enable UUID extension

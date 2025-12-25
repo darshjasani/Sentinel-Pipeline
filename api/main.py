@@ -1,5 +1,5 @@
 """
-CI Pipeline FastAPI Application
+Sentinel Pipeline FastAPI Application
 Main API endpoints for CI run management, incident tracking, and dashboard
 """
 
@@ -25,7 +25,7 @@ Base.metadata.create_all(bind=engine)
 
 # Initialize FastAPI app
 app = FastAPI(
-    title="CI Pipeline API",
+    title="Sentinel Pipeline API",
     description="Production-grade CI/CD pipeline management system",
     version="1.0.0"
 )
@@ -52,7 +52,7 @@ except Exception as e:
 @app.on_event("startup")
 async def startup_event():
     """Initialize on startup"""
-    print("🚀 CI Pipeline API starting...")
+    print("🚀 Sentinel Pipeline API starting...")
     try:
         seed_database()
     except Exception as e:
@@ -334,7 +334,7 @@ def get_dashboard(db: Session = Depends(get_db)):
 def root():
     """Root endpoint"""
     return {
-        "name": "CI Pipeline API",
+        "name": "Sentinel Pipeline API",
         "version": "1.0.0",
         "status": "running",
         "endpoints": {

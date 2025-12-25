@@ -1,5 +1,5 @@
 """
-CI Pipeline Worker
+Sentinel Pipeline Worker
 Processes CI job queue and executes runs
 """
 
@@ -269,7 +269,7 @@ def _record_failure(db, run, steps):
 
 
 if __name__ == "__main__":
-    print("🔧 CI Pipeline Worker starting...")
+    print("🔧 Sentinel Pipeline Worker starting...")
     print(f"Database: {settings.database_url}")
     print(f"Redis: {settings.redis_url}")
     

@@ -2,7 +2,7 @@
 
 # Start the entire system
 up:
-	@echo "🚀 Starting CI Pipeline system..."
+	@echo "🚀 Starting Sentinel Pipeline system..."
 	@mkdir -p data/logs
 	@docker-compose up -d --build
 	@echo "⏳ Waiting for services to be healthy..."
@@ -21,7 +21,7 @@ up:
 
 # Stop all services
 down:
-	@echo "🛑 Stopping CI Pipeline system..."
+	@echo "🛑 Stopping Sentinel Pipeline system..."
 	@docker-compose down
 
 # Clean everything including volumes
@@ -130,7 +130,7 @@ shell-db:
 
 # Help
 help:
-	@echo "CI Pipeline - Available Commands"
+	@echo "Sentinel Pipeline - Available Commands"
 	@echo ""
 	@echo "Main commands:"
 	@echo "  make up              - Start the entire system"
