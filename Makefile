@@ -128,6 +128,29 @@ shell-worker:
 shell-db:
 	@docker-compose exec postgres psql -U ciuser -d ci_pipeline
 
+# List registered repositories
+repos:
+	@echo "📦 Registered Repositories:"
+	@curl -s http://localhost:8000/repos | python3 -m json.tool
+
+# Add the calculator example repository
+add-calculator:
+	@echo "➕ Adding calculator-app repository..."
+	@curl -s -X POST http://localhost:8000/repos \
+		-H "Content-Type: application/json" \
+		-d '{"id":"calculator-app","name":"Calculator Application","path":"/app/sample-repos/calculator-app"}' \
+		| python3 -m json.tool
+
+# Run tests on calculator-app
+test-calculator:
+	@echo "🧮 Running tests on calculator-app..."
+	@curl -s -X POST http://localhost:8000/runs \
+		-H "Content-Type: application/json" \
+		-d '{"repo_id":"calculator-app","job_template":"pytest","timeout_sec":300,"triggered_by":"manual"}' \
+		| python3 -m json.tool
+	@echo ""
+	@echo "✔ Test run triggered. Check UI at http://localhost:3000"
+
 # Help
 help:
 	@echo "Sentinel Pipeline - Available Commands"
@@ -152,4 +175,9 @@ help:
 	@echo "  make shell-api       - API container shell"
 	@echo "  make shell-worker    - Worker container shell"
 	@echo "  make shell-db        - Database shell"
+	@echo ""
+	@echo "Custom Repos:"
+	@echo "  make repos           - List all registered repositories"
+	@echo "  make add-calculator  - Add calculator example repo"
+	@echo "  make test-calculator - Run tests on calculator app"
 

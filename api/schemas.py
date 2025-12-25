@@ -9,6 +9,12 @@ from uuid import UUID
 
 
 # Request schemas
+class RepositoryCreate(BaseModel):
+    id: str
+    name: str
+    path: str
+
+
 class RunCreate(BaseModel):
     repo_id: str
     job_template: str
@@ -17,6 +23,16 @@ class RunCreate(BaseModel):
 
 
 # Response schemas
+class RepositoryResponse(BaseModel):
+    id: str
+    name: str
+    path: str
+    created_at: datetime
+
+    class Config:
+        from_attributes = True
+
+
 class StepResponse(BaseModel):
     step_name: str
     status: str

@@ -13,6 +13,7 @@ import uuid
 
 from database import get_db, seed_database, engine, Base
 from schemas import (
+    RepositoryCreate, RepositoryResponse,
     RunCreate, RunResponse, RunListItem, FailureClusterResponse,
     IncidentResponse, IncidentListItem, FlakyTestResponse,
     DashboardStats, HealthResponse, StepResponse, FailureInfo
@@ -87,6 +88,43 @@ def health_check(db: Session = Depends(get_db)):
         "database": db_status,
         "redis": redis_status
     }
+
+
+@app.get("/repos", response_model=List[RepositoryResponse])
+def list_repositories(db: Session = Depends(get_db)):
+    """List all registered repositories"""
+    repos = db.query(crud.Repository).all()
+    return repos
+
+
+@app.get("/repos/{repo_id}", response_model=RepositoryResponse)
+def get_repository(repo_id: str, db: Session = Depends(get_db)):
+    """Get a specific repository by ID"""
+    repo = db.query(crud.Repository).filter(crud.Repository.id == repo_id).first()
+    if not repo:
+        raise HTTPException(status_code=404, detail=f"Repository '{repo_id}' not found")
+    return repo
+
+
+@app.post("/repos", response_model=RepositoryResponse, status_code=201)
+def create_repository(repo_data: RepositoryCreate, db: Session = Depends(get_db)):
+    """Register a new repository"""
+    # Check if repo already exists
+    existing = db.query(crud.Repository).filter(crud.Repository.id == repo_data.id).first()
+    if existing:
+        raise HTTPException(status_code=409, detail=f"Repository '{repo_data.id}' already exists")
+    
+    # Create new repository
+    repo = crud.Repository(
+        id=repo_data.id,
+        name=repo_data.name,
+        path=repo_data.path
+    )
+    db.add(repo)
+    db.commit()
+    db.refresh(repo)
+    
+    return repo
 
 
 @app.post("/runs", response_model=RunResponse, status_code=201)
@@ -339,6 +377,7 @@ def root():
         "status": "running",
         "endpoints": {
             "health": "/health",
+            "repos": "/repos",
             "runs": "/runs",
             "incidents": "/incidents",
             "flaky_tests": "/flaky-tests",
