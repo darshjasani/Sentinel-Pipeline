@@ -1,14 +1,30 @@
-# Sentinel Pipeline
+# Sentinel Pipeline 🚦
 
-Sentinel Pipeline is a **production-grade, local CI reliability and failure management system** designed to demonstrate modern CI orchestration, failure triage, and incident management practices.
+Sentinel Pipeline is a **production-grade, local CI reliability and failure management system** designed to demonstrate how modern engineering teams operate, debug, and improve their CI infrastructure.
 
-It runs fully on a local machine using Docker and open-source tooling, with zero paid dependencies. The system is intentionally scoped to mirror real-world CI reliability challenges seen in large engineering organizations, while remaining reproducible and easy to evaluate.
+It runs entirely on a local machine using Docker and open-source tooling, with **zero paid dependencies**. The system is intentionally scoped to reflect real-world CI reliability challenges such as flaky tests, repeated failures, and incident response, while remaining reproducible and easy to evaluate.
 
-This project is suitable for technical interviews, portfolio demonstration, and hands-on learning of distributed systems, CI infrastructure, and production engineering patterns.
+This project is well suited for **technical interviews**, **portfolio demonstrations**, and **hands-on learning** in distributed systems, CI infrastructure, and production engineering.
 
 ---
 
-## What Sentinel Pipeline Does
+## ✨ Why Sentinel Pipeline
+
+Most CI demos stop at running tests. Sentinel Pipeline focuses on **reliability, failure analysis, and operational visibility**, which are core concerns in large-scale engineering environments.
+
+With Sentinel Pipeline, you can demonstrate:
+
+* How CI jobs are orchestrated and executed
+* How failures are analyzed and clustered
+* How flaky behavior is detected over time
+* How repeated failures escalate into incidents
+* How engineers reason about CI health using dashboards and timelines
+
+All of this runs locally with a single command.
+
+---
+
+## 🔍 What Sentinel Pipeline Does
 
 Sentinel Pipeline provides an end-to-end CI execution and reliability workflow:
 
@@ -25,9 +41,9 @@ All components run locally using Docker Compose and can be started with a single
 
 ---
 
-## Key Capabilities
+## 🧠 Key Capabilities
 
-### CI Job Orchestration
+### CI Job Orchestration ⚙️
 
 * FIFO job queue backed by Redis
 * Worker-based execution with retries and timeouts
@@ -35,7 +51,7 @@ All components run locally using Docker Compose and can be started with a single
 * Robust handling of worker crashes and orphaned jobs
 * Deterministic demo jobs for success, failure, flakiness, timeout, and infrastructure errors
 
-### Failure Triage and Clustering
+### Failure Triage and Clustering 🧩
 
 * Signature-based failure classification
 * Normalized fingerprinting of error output
@@ -44,14 +60,14 @@ All components run locally using Docker Compose and can be started with a single
 * Evidence extraction from logs
 * Actionable remediation suggestions per failure category
 
-### Flaky Test Detection
+### Flaky Test Detection 🧪
 
 * Tracks test outcomes across multiple runs
 * Computes failure ratios over a sliding window
 * Separates flaky failures from deterministic failures
 * Exposes flaky tests in a dedicated dashboard view
 
-### Incident Management
+### Incident Management 🚨
 
 * Automatic incident creation based on configurable thresholds
 * Incident timelines with related run history
@@ -59,7 +75,7 @@ All components run locally using Docker Compose and can be started with a single
 * Status transitions (open, mitigating, resolved)
 * Postmortem-style incident review pages
 
-### Dashboard UI
+### Dashboard UI 📊
 
 * Overview page with pipeline health metrics
 * Runs list and detailed run views
@@ -69,9 +85,9 @@ All components run locally using Docker Compose and can be started with a single
 
 ---
 
-## Architecture Overview
+## 🏗️ Architecture Overview
 
-Sentinel Pipeline is implemented as a local distributed system using Docker Compose.
+Sentinel Pipeline is implemented as a **local distributed system** using Docker Compose.
 
 ### Services
 
@@ -85,7 +101,7 @@ All services communicate over local Docker networking. Logs and artifacts are st
 
 ---
 
-## Tech Stack
+## 🛠️ Tech Stack
 
 * Python 3.11
 * FastAPI
@@ -99,7 +115,7 @@ Optional components are designed to be pluggable but are not required for the co
 
 ---
 
-## Getting Started
+## 🚀 Getting Started
 
 ### Prerequisites
 
@@ -143,24 +159,24 @@ make reset
 
 ---
 
-## Demo Commands
+## 🎬 Demo Commands
 
-Sentinel Pipeline includes deterministic demo scenarios.
+Sentinel Pipeline includes deterministic demo scenarios designed for reliability testing and interviews.
 
 ```bash
 make demo:success     # Successful CI run
 make demo:testfail    # Deterministic test failure
 make demo:flaky       # Intermittent flaky test behavior
 make demo:timeout     # Job timeout scenario
-make demo:dns         # Simulated network/DNS failure
+make demo:dns         # Simulated network or DNS failure
 make demo:disk        # Simulated disk exhaustion
 ```
 
-These demos are designed to reliably trigger failure clustering, flaky detection, and incident creation.
+These demos reliably trigger failure clustering, flaky detection, and incident creation.
 
 ---
 
-## API Overview
+## 🔌 API Overview
 
 Key endpoints include:
 
@@ -173,11 +189,11 @@ Key endpoints include:
 * `GET /incidents/{id}` incident detail and timeline
 * `GET /health` service health check
 
-The API is designed for clarity and debuggability rather than public exposure.
+The API is designed for clarity, observability, and debugging rather than public exposure.
 
 ---
 
-## Project Structure
+## 📁 Project Structure
 
 ```
 sentinel-pipeline/
@@ -198,7 +214,7 @@ sentinel-pipeline/
 
 ---
 
-## Testing
+## 🧪 Testing
 
 The project includes:
 
@@ -214,7 +230,7 @@ make test
 
 ---
 
-## Documentation
+## 📚 Documentation
 
 * **README.md**: Project overview and setup
 * **ARCHITECTURE.md**: System design and data flow
@@ -222,27 +238,16 @@ make test
 
 ---
 
-## Intended Use
+## 🔐 Security Note
 
-Sentinel Pipeline is intended for:
-
-* Technical interviews and system design discussions
-* Portfolio demonstration of production engineering skills
-* Learning CI reliability, failure analysis, and incident management
-* Local experimentation without cloud dependencies
-
-It is not intended to replace full CI platforms such as GitHub Actions or Buildkite.
-
----
-
-## Security Note
-
-This project is for local development and demonstration only.
+This project is intended for local development and demonstration only.
 It does not include authentication, authorization, or hardened isolation.
+
 Do not expose it to untrusted networks without additional security controls.
 
 ---
 
-## License
+## 📄 License
 
 MIT License
+
