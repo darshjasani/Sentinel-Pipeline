@@ -1,6 +1,6 @@
 # Sentinel Pipeline 🚦
 
-Sentinel Pipeline is a **production-grade, local CI reliability and failure management system** designed to demonstrate how modern engineering teams operate, debug, and improve their CI infrastructure.
+Sentinel Pipeline is a **production-grade, local CI (Continuous Integration) reliability and failure management system** designed to demonstrate how modern engineering teams operate, debug, and improve their CI infrastructure.
 
 It runs entirely on a local machine using Docker and open-source tooling, with **zero paid dependencies**. The system is intentionally scoped to reflect real-world CI reliability challenges such as flaky tests, repeated failures, and incident response, while remaining reproducible and easy to evaluate.
 
